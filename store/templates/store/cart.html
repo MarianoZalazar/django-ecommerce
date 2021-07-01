@@ -1,68 +1,54 @@
 {%extends 'store/main.html'%}
 {%load static%}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
     {% block content%}
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="box-element">
-                <a class="btn btn-outline-dark" href="{%url 'store'%}">&#x2190; Continue Shopping</a>
-                <br>
-                <table class="table">
-                    <tr>
-                        <th>
-                            <h5>Items: <strong>3</strong></h5>
-                        </th>
-                        <th>
-                            <h5>Total: <strong>$42</strong></h5>
-                        </th>
-                        <th>
-                            <a href="{%url 'checkout'%}" class="btn btn-success" style="float:right; margin:5px">Checkout</a>
-                        </th>
-                    </tr>
-                </table>
+    <div class="container h-100">
+        <div class="row pt-5">
+            <div class="pb-4">
+                <a href="{%url 'index'%}"><button type="button" class="btn blue-btn"><</button></a>
             </div>
-            <div class="box-element">
-                <div class="cart-row">
-                    <div style="flex:2"></div>
-                    <div style="flex:2"><strong>Item</strong></div>
-                    <div style="flex:1"><strong>Price</strong></div>
-                    <div style="flex:1"><strong>Quantity</strong></div>
-                    <div style="flex:1"><strong>Total</strong></div>
+            <div class="col">
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    <h5>Items: <strong>3</strong></h5>
+                                </th>
+                                <th>
+                                    <h5>Total: <strong>$42</strong></h5>
+                                </th>
+                                <th>
+                                    <a href="{%url 'checkout'%}" class="btn blue-btn" style="float:right; margin:5px">Checkout</a>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                <div class="cart-row">
-                    <div style="flex:2">
-                        <img src="{%static 'images/product.png'%}" alt="" class="row-image">
-                    </div>
-                    <div style="flex:2">
-                        <p>Product 1</p>
-                    </div>
-                    <div style="flex:1">
-                        <p>$20</p>
-                    </div>
-                    <div class="flex-1">
-                        <p class="quantity">2</p>
-                        <div class="quantity">
-                            <img src="{%static 'images/up.png'%}" alt="" class="chg-quantity">
-                            <img src="{%static 'images/down.png'%}" alt="" class="chg-quantity">
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col">
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <hr>
+                        <div class="cart-row d-flex justify-content-around pt-3">
+                            <div class="p-2"><img src="#"></div>
+                            <div class="p-2"><p>Product 1</p></div>
+                            <div class="p-2"><p>$20.00</p></div>
+                            <div class="p-2">
+                                <div class="quantity">
+                                    <span style="margin-right: 10px;">2</span>
+                                    <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity">
+                                    <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity">
+                                </div>
+                                
+                            </div>
+                            <div class="p-2"><p>$32</p></div>
                         </div>
-                    </div>
-                    <div style="flex:1">
-                        <p>$32</p>
+                        <hr>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {% endblock content%}
-
-</body>
-</html>
+    {%endblock content %}

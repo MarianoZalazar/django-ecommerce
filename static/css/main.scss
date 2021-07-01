@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+body {
+  font-family: "Poppins";
+  background-color: #f4f5fa;
+  height: 100vh;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration-line: none;
+}
+
+img {
+  width: 100%;
+}
+.navbar {
+  background-color: #f4f5fa;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  text-align: center;
+  .logo {
+    padding-left: 15%;
+    font-size: 36px;
+    font-weight: 600;
+    color: #393d46;
+  }
+
+  .nav-links {
+    display: flex;
+    padding-right: 20%;
+    a {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 200;
+      img {
+        width: 30px;
+        height: 30px;
+        padding-right: 0.25em;
+      }
+    }
+    #login-btn {
+      padding-left: 1em;
+    }
+    #cart-total {
+      text-align: center;
+      color: #fff;
+      background-color: #002474;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 14px;
+    }
+  }
+}
+
+span,
+p,
+h1,
+h3 {
+  color: #393d46;
+}
+.hero-text {
+  .hero-title {
+    word-break: break-word;
+    font-weight: 600;
+    font-size: 4.85rem;
+    padding-top: 1.5em;
+  }
+  .hero-desc {
+    font-weight: 300;
+    font-size: 1.25rem;
+  }
+}
+
+.for-sale,
+.store,
+.login {
+  padding-top: 0;
+}
+
+.card {
+  margin-right: 1rem;
+  border: none;
+  transition-duration: 0.3s;
+}
+.card:hover {
+  box-shadow: 0 10px 20px rgba(#000, 0.19), 0 6px 6px rgba(#000, 0.23);
+}
+
+.about {
+  padding: 10%;
+  text-align: center;
+  p {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 2em;
+    margin-top: 2em;
+  }
+}
+.container-store {
+  width: 70%;
+  .col-sm {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+}
+.btn-light {
+  color: #002474 !important;
+}
+
+.slick-prev:before {
+  content: url("/static/images/left.png") !important;
+}
+.slick-next:before {
+  content: url("/static/images/right.png") !important;
+}
+.quantity {
+  display: inline-block;
+  padding-right: 10px;
+}
+.arrows {
+  margin-right: 2px;
+}
+.chg-quantity {
+  width: 12px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+label {
+  color: #ffffff;
+}
+
+.blue-btn {
+  background-color: #002474 !important;
+  color: #ffffff !important;
+}
+.blue {
+  background-color: #002474 !important;
+}
+
+.chg-quantity:hover {
+  opacity: 0.6;
+}
+.product-image {
+  width: 250px;
+  height: 358px;
+}
+.product-text {
+  .product-title {
+    font-weight: 400;
+    font-size: 2.85rem;
+  }
+  .product-desc {
+    font-weight: 200;
+    font-size: 1rem;
+  }
+}

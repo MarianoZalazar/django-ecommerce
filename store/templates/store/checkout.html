@@ -1,75 +1,99 @@
 {%extends 'store/main.html'%}
 {%load static%}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
     {% block content%}
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="box-element" id="form-wrapper">
-                <form id="form">
-					<div id="user-info">
-						<div class="form-field">
-							<input required class="form-control" type="text" name="name" placeholder="Name..">
-						</div>
-						<div class="form-field">
-							<input required class="form-control" type="email" name="email" placeholder="Email..">
-						</div>
-					</div>
-					
-					<div id="shipping-info">
-						<hr>
-						<p>Shipping Information:</p>
-						<hr>
-						<div class="form-field">
-							<input class="form-control" type="text" name="address" placeholder="Address..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="city" placeholder="City..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="state" placeholder="State..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="country" placeholder="Zip code..">
-						</div>
-					</div>
-
-					<hr>
-					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
-				</form>
-                <br>
-                <div class="box-element hidden" id="payment-info">
-                    <small>Paypal Options</small>
+        <div class="row pt-4 justify-content-evenly h-100">
+            <div class="pb-4">
+                <a href="{% url 'index' %}"><button type="button" class="btn btn-outline-secondary blue-btn"><</button></a>
+            </div>
+            <div class="col-xs-12 col-sm-6">   
+                <div class="row justify-content-sm-center h-100 pb-5">
+                    <div class="col">
+                        <div class="card shadow-lg">
+                            <div class="card-body blue p-5">
+                                <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                                    <div class="row">
+                                      <div class="col">
+                                        <label class="mb-2" for="email">E-Mail</label>
+                                        <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                        <div class="invalid-feedback">
+                                            Email is invalid
+                                        </div>
+                                      </div>
+                                      <div class="col">
+                                        <label class="mb-2" for="name">Name</label>
+                                        <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
+                                        <div class="invalid-feedback">
+                                            Name is required	
+                                        </div>
+                                      </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="row pt-5 justify-content-sm-center h-100">
+                        <div class="col">
+                            <div class="card shadow-lg">
+                                <div class="card-body blue p-5">
+                                    <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label class="mb-2" for="address">Address</label>
+                                                <input id="address" type="text" class="form-control" name="address" value="" required autofocus>
+                                                <div class="invalid-feedback">
+                                                    Address is invalid
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label class="mb-2" for="city">City</label>
+                                                <input id="city" type="text" class="form-control" name="city" value="" required autofocus>
+                                                <div class="invalid-feedback">
+                                                    City is required	
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-1">
+                                            <div class="col">
+                                              <label class="mb-2" for="address">State</label>
+                                              <input id="state" type="text" class="form-control" name="state" value="" required autofocus>
+                                              <div class="invalid-feedback">
+                                                  State is invalid
+                                              </div>
+                                            </div>
+                                            <div class="col">
+                                              <label class="mb-2" for="name">Zip Code</label>
+                                              <input id="zipcode" type="text" class="form-control" name="zipcode" value="" required autofocus>
+                                              <div class="invalid-feedback">
+                                                  Zip Code is required	
+                                              </div>
+                                            </div>
+                                          </div>
+                                      </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="box-element">
-                <a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
-				<hr>
-				<h3>Order Summary</h3>
-				<hr>
-				<div class="cart-row">
-					<div style="flex:2"><img class="row-image" src="{% static 'images/product.png' %}"></div>
-					<div style="flex:2"><p>Product 1</p></div>
-					<div style="flex:1"><p>$20.00</p></div>
-					<div style="flex:1"><p>x2</p></div>
-				</div>
-				<h5>Items:   2</h5>
-				<h5>Total:   $4</h5>
+            <div class="col-xs-12 col-sm-6">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5>Order Summary</h5>
+                        <hr>
+                        <div class="cart-row d-flex justify-content-around">
+                            <div class="p-2"><img class="row-image" src="#"></div>
+                            <div class="p-2"><p>Product 1</p></div>
+                            <div class="p-2"><p>$20.00</p></div>
+                            <div class="p-2"><p>x2</p></div>
+                        </div>
+                        <hr>
+                        <h5>Items:   2</h5>
+                        <h5>Total:   $4</h5>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    {%endblock content %}    
-</body>
-</html>
+        </div>    
+    {%endblock content %}

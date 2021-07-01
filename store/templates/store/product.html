@@ -1,0 +1,21 @@
+{%extends 'store/main.html'%}
+{%load static%}
+{% block content%}
+        <div class="container w-75 pt-5">
+            <!-- Hero -->
+            <div class="row justify-content-evenly align-items-center pb-5 pt-2 pe-5 ps-5" style="background-color: #ffffff;">
+                <div class="col-lg-4 col-md-8 col-sm-12 col-xs-12 pt-4">
+                    <img src="{% static 'images/samsung.png' %}" class="product-image img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                    <div class="product-text">
+                        <span class="product-title w-50">Samsung Galaxy 10</span>
+                        <p class="product-desc">Push the boundaries of technology to give our customers an enhanced mobile experience</p>
+                        <p class="fs-5">$100</p>
+                        <button type="button" class="btn blue-btn">Add to Cart</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    {%endblock content %}    
