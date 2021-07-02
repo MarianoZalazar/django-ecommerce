@@ -32,7 +32,14 @@ def product(request):
     return render(request, 'store/product.html', context)
 
 def cart(request):
-    context = {}
+    
+    if request.user.is_authenticated:
+        customer = request.user.customermodel
+        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitemmodel_set.all()
+    else:
+        items = []
+    context = {'items': items}
     return render(request, 'store/cart.html', context)
     
 def checkout(request):

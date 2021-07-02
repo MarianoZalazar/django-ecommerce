@@ -27,28 +27,32 @@
             </div>
         </div>
         <div class="row pt-5">
+            
             <div class="col">
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <hr>
-                        <div class="cart-row d-flex justify-content-around pt-3">
-                            <div class="p-2"><img src="#"></div>
-                            <div class="p-2"><p>Product 1</p></div>
-                            <div class="p-2"><p>$20.00</p></div>
-                            <div class="p-2">
+                        {%for item in items%}
+                        <div class="cart-row d-flex pt-3">
+                            <div class="p-5 flex-fill"><img src="{{item.product.imageURL}}" class="cart-image"></div>
+                            <div class="p-5 flex-fill"><p>{{item.product.name}}</p></div>
+                            <div class="p-5 flex-fill"><p>${{item.product.price|floatformat:2}}</p></div>
+                            <div class="p-5 flex-fill">
                                 <div class="quantity">
-                                    <span style="margin-right: 10px;">2</span>
+                                    <span style="margin-right: 10px;">{{item.quantity}}</span>
                                     <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity">
                                     <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity">
                                 </div>
                                 
                             </div>
-                            <div class="p-2"><p>$32</p></div>
+                            <div class="p-5 flex-fill"><p>{{item.get_total}}</p></div>
                         </div>
                         <hr>
+                        {%endfor%}
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     {%endblock content %}
