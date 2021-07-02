@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import *
 # Create your views here.
 
 def index(request):
@@ -23,7 +23,8 @@ def forgot(request):
     return render(request, 'store/forgot.html', context)
 
 def store(request):
-    context = {}
+    products = ProductModel.objects.all()
+    context = {'products': products}
     return render(request, 'store/store.html', context)
 
 def product(request):

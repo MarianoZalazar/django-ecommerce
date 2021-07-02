@@ -6,170 +6,21 @@
             <div class="col-sm-12">
                 <span style="font-weight: 500; font-size: 36px;">Store</span>
             </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
 
-            </div>
+            {% for product in products %}
             <div class="col-sm">
                 <div class="card text-center h-100">
                     <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
+                    <img src="{{product.imageURL}}" class="card-img-top">
                     <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-
-            </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
+                      <h5 class="card-title" style="font-size: 14px;">{{product.name}}</h5>
+                      <p class="card-text" style="font-size: 12px;">$ {{product.price|floatformat:2}}</p>
+                      <button type="button" class="btn blue-btn">Add to Cart</button>
                     </div> 
                     </a>  
                 </div>
             </div>
-            <div class="col-sm">
-                <div class="card text-center h-100">
-                    <a href="#">
-                    <img src="{% static 'images/phone.jpg' %}" class="card-img-top">
-                    <div class="card-body" style="color:#393D46">
-                      <h5 class="card-title" style="font-size: 14px;">Motorola G9 Power Green</h5>
-                      <p class="card-text" style="font-size: 12px;">$ 10.000</p>
-                      <button type="button" class="btn btn-outline-secondary ">Add to Cart</button>
-                    </div> 
-                    </a>  
-                </div>
-            </div>
+            {%endfor%}
         </div>
     </div>
     {%endblock content %}    

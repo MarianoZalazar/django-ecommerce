@@ -85,6 +85,7 @@ h3 {
 
 .card {
   margin-right: 1rem;
+  width: 11rem;
   border: none;
   transition-duration: 0.3s;
 }
