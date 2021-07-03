@@ -11,6 +11,5 @@ urlpatterns = [
     path('register/', views.register, name="register"),
     path('reset/', views.reset, name="reset"),
     path('forgot/', views.forgot, name="forgot"),
-    
-    
+    path('update_item/', views.update_item, name="update_item")
 ]

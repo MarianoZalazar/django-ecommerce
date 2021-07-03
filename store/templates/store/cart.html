@@ -34,8 +34,8 @@
                             <div class="p-3 flex-fill"><p>$ {{item.product.price|floatformat:2}}</p></div>
                             <div class="p-3 flex-fill">
                                     <span>{{item.quantity}}</span>
-                                    <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity">
-                                    <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity">         
+                                    <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action='add'>
+                                    <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action='remove'>         
                             </div>
                             <div class="p-3 flex-fill"><p>$ {{item.get_total}}</p></div>
                         </div>

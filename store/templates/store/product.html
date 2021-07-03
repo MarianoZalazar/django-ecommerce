@@ -12,7 +12,8 @@
                         <span class="product-title w-50">{{product.name}}</span>
                         <p class="product-desc">{{product.description}}</p>
                         <p class="fs-3">${{product.price|floatformat:2}}</p>
-                        <button type="button" class="btn blue-btn">Add to Cart</button>
+                        <button type="button" class="btn blue-btn update-cart" data-product="{{product.id}}" data-action='add'>
+                            Add to Cart</button>
                     </div>
                     
                 </div>
