@@ -5,19 +5,13 @@
             <div class="col-sm-12">
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
-                        <table class="table">
-                            <tr>
-                                <th>
-                                    <h5>Items: <strong>{{order.get_order_quantity}}</strong></h5>
-                                </th>
-                                <th>
-                                    <h5>Total: <strong>${{order.get_order_total}}</strong></h5>
-                                </th>
-                                <th>
-                                    <a href="{%url 'checkout'%}" class="btn blue-btn" style="float:right; margin:5px">Checkout</a>
-                                </th>
-                            </tr>
-                        </table>
+                        <div class="d-flex flex-md-row flex-column justify-content-between pt-3 ps-5">
+                            <div class="p-5"><h5>Items: <strong>{{order.get_order_quantity}}</strong></h5></div>
+                            <div class="p-5"><h5>Total: <strong>${{order.get_order_total}}</strong></h5></div>
+                            <div class="p-5"><a href="{% url 'checkout' %}" class="ps-3"><button type="button" class="btn blue-btn">Checkout</button></a></div>
+                        </div>
+                        <hr>
+
                     </div>
                 </div>
             </div>
@@ -37,7 +31,7 @@
                                     <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action='add'>
                                     <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action='remove'>         
                             </div>
-                            <div class="p-3 flex-fill"><p>$ {{item.get_total}}</p></div>
+                            <div class="p-3 flex-fill"><p>$ {{item.get_total|floatformat:2}}</p></div>
                         </div>
                         <hr>
                         {%endfor%}

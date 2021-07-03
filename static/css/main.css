@@ -37,6 +37,10 @@ label {
   height: 30px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .navbar {
   background-color: #f4f5fa;
   padding-top: 2.5%;

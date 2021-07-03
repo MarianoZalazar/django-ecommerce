@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
+import datetime
 from .models import *
 # Create your views here.
 
@@ -14,8 +15,7 @@ def index(request):
         items = []
         order = {'get_order_total': 0, 'get_order_quantity': 0}
         cart_items = order['get_order_quantity']
-        
-    products = ProductModel.objects.all()
+    products = ProductModel.objects.all()[:8]
     context = {'products': products, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/index.html', context)
 
@@ -113,3 +113,22 @@ def update_item(request):
         order_item.delete()
         
     return JsonResponse('item was added', safe=False)
+
+def process_order(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+    if request.user.is_authenticated:
+        customer = request.user.customermodel
+        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
+        total = float(data['userData']['total'])
+        order.transaction_id = transaction_id
+        if total == float(order.get_order_total):
+            order.complete = True
+        order.save()
+        
+        ShippingModel.objects.create(customer=customer, order=order, **data['shippingData'])
+    else:
+        print('User not logged in')
+        
+    
+    return JsonResponse('Order Processed', safe=False)

@@ -28,7 +28,7 @@ function updateUserOrder(productId, action) {
             return response.json()
         })
         .then((data) => {
-            console.log('data', data)
+            console.log('data', data.cart_total)
             location.reload()
         })
 }
