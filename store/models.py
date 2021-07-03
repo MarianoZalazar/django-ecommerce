@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 class CustomerModel(models.Model):
@@ -35,6 +36,18 @@ class OrderModel(models.Model):
     transaction_id = models.CharField(max_length=100, null=True)
     def __str__(self):
         return str(self.id)
+    
+    @property
+    def get_order_total(self):
+        orderitems = self.orderitemmodel_set.all()
+        total = sum([orderitem.get_total for orderitem in orderitems])
+        return total
+    
+    @property
+    def get_order_quantity(self):
+        orderitems = self.orderitemmodel_set.all()
+        quantity = sum([orderitem.quantity for orderitem in orderitems])
+        return quantity
     
 class OrderItemModel(models.Model):
     product = models.ForeignKey(ProductModel, on_delete=models.SET_NULL, null=True, blank=True)

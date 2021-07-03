@@ -19,11 +19,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto nav-links">
-          <a href="{% url 'cart' %}" class="cart-icon">
-              <img src="{% static 'images/cart.png' %}" alt="">
+          <a href="{% url 'cart' %}">
+              <img src="{% static 'images/cart.png' %}" class="xs-image pe-1" alt="cart">
           </a>
           <p id="cart-total">0</p>
-          <a href="{% url 'userlogin' %}" id="login-btn"><button type="button" class="btn blue-btn">Login</button></a>
+          <a href="{% url 'userlogin' %}" class="ps-3"><button type="button" class="btn blue-btn">Login</button></a>
         </div>
       </div>
     </nav>

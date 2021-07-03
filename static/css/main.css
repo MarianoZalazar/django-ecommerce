@@ -16,8 +16,25 @@ a {
           text-decoration-line: none;
 }
 
-img {
-  width: 100%;
+span,
+p,
+h1,
+h3 {
+  color: #393d46;
+}
+
+label {
+  color: #ffffff;
+}
+
+.sm-image {
+  width: 60px;
+  height: 60px;
+}
+
+.xs-image {
+  width: 30px;
+  height: 30px;
 }
 
 .navbar {
@@ -41,14 +58,6 @@ img {
   font-size: 18px;
   font-weight: 200;
 }
-.navbar .nav-links a img {
-  width: 30px;
-  height: 30px;
-  padding-right: 0.25em;
-}
-.navbar .nav-links #login-btn {
-  padding-left: 1em;
-}
 .navbar .nav-links #cart-total {
   text-align: center;
   color: #fff;
@@ -57,13 +66,6 @@ img {
   height: 20px;
   border-radius: 50%;
   font-size: 14px;
-}
-
-span,
-p,
-h1,
-h3 {
-  color: #393d46;
 }
 
 .hero-text .hero-title {
@@ -77,25 +79,31 @@ h3 {
   font-size: 1.25rem;
 }
 
-.for-sale,
-.store,
-.login {
-  padding-top: 0;
-}
-
 .card {
   margin-right: 1rem;
   border: none;
   transition-duration: 0.3s;
 }
+.card .index-store-image {
+  height: 168px !important;
+}
 
 .card:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
+.card:hover .card-title {
+  overflow: revert;
+  white-space: revert !important;
+  word-break: revert !important;
+  text-overflow: revert !important;
+}
 
-.cart-image {
-  width: 60px;
-  height: 60px;
+.slick-prev:before {
+  visibility: hidden !important;
+}
+
+.slick-next:before {
+  content: url("/static/images/right.png") !important;
 }
 
 .about {
@@ -106,17 +114,11 @@ h3 {
   padding-left: 5%;
   padding-right: 5%;
 }
-.about img {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 2em;
-  margin-top: 2em;
-}
 
 .container-store {
   width: 70%;
 }
-.container-store .col-sm {
+.container-store .products {
   padding-right: 0 !important;
   padding-left: 0 !important;
 }
@@ -125,31 +127,14 @@ h3 {
   color: #002474 !important;
 }
 
-.slick-prev:before {
-  content: url("/static/images/left.png") !important;
-}
-
-.slick-next:before {
-  content: url("/static/images/right.png") !important;
-}
-
-.quantity {
-  display: inline-block;
-  padding-right: 10px;
-}
-
-.arrows {
-  margin-right: 2px;
-}
-
 .chg-quantity {
   width: 12px;
   cursor: pointer;
   transition: 0.1s;
 }
 
-label {
-  color: #ffffff;
+.chg-quantity:hover {
+  opacity: 0.6;
 }
 
 .blue-btn {
@@ -161,13 +146,9 @@ label {
   background-color: #002474 !important;
 }
 
-.chg-quantity:hover {
-  opacity: 0.6;
-}
-
 .product-image {
   width: 250px;
-  height: 358px;
+  height: 360px;
 }
 
 .product-text .product-title {

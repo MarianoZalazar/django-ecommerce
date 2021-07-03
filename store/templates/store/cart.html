@@ -1,21 +1,17 @@
 {%extends 'store/main.html'%}
 {%load static%}
     {% block content%}
-    <div class="container h-100">
         <div class="row pt-5">
-            <div class="pb-4">
-                <a href="{%url 'index'%}"><button type="button" class="btn blue-btn"><</button></a>
-            </div>
-            <div class="col">
+            <div class="col-sm-12">
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <table class="table">
                             <tr>
                                 <th>
-                                    <h5>Items: <strong>3</strong></h5>
+                                    <h5>Items: <strong>{{order.get_order_quantity}}</strong></h5>
                                 </th>
                                 <th>
-                                    <h5>Total: <strong>$42</strong></h5>
+                                    <h5>Total: <strong>${{order.get_order_total}}</strong></h5>
                                 </th>
                                 <th>
                                     <a href="{%url 'checkout'%}" class="btn blue-btn" style="float:right; margin:5px">Checkout</a>
@@ -26,33 +22,27 @@
                 </div>
             </div>
         </div>
-        <div class="row pt-5">
-            
-            <div class="col">
+        <div class="row pt-5 h-100">
+            <div class="col-sm-12">
                 <div class="card shadow-lg">
-                    <div class="card-body p-5">
+                    <div class="card-body">
                         <hr>
                         {%for item in items%}
-                        <div class="cart-row d-flex pt-3">
-                            <div class="p-5 flex-fill"><img src="{{item.product.imageURL}}" class="cart-image"></div>
-                            <div class="p-5 flex-fill"><p>{{item.product.name}}</p></div>
-                            <div class="p-5 flex-fill"><p>${{item.product.price|floatformat:2}}</p></div>
-                            <div class="p-5 flex-fill">
-                                <div class="quantity">
-                                    <span style="margin-right: 10px;">{{item.quantity}}</span>
+                        <div class="d-flex flex-md-row flex-column justify-content-center pt-3 ps-5">
+                            <div class="p-3 flex-fill"><img src="{{item.product.imageURL}}" class="sm-image"></div>
+                            <div class="p-3 flex-fill"><p>{{item.product.name}}</p></div>
+                            <div class="p-3 flex-fill"><p>$ {{item.product.price|floatformat:2}}</p></div>
+                            <div class="p-3 flex-fill">
+                                    <span>{{item.quantity}}</span>
                                     <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity">
-                                    <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity">
-                                </div>
-                                
+                                    <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity">         
                             </div>
-                            <div class="p-5 flex-fill"><p>{{item.get_total}}</p></div>
+                            <div class="p-3 flex-fill"><p>$ {{item.get_total}}</p></div>
                         </div>
                         <hr>
                         {%endfor%}
                     </div>
                 </div>
             </div>
-            
         </div>
-    </div>
     {%endblock content %}

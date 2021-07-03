@@ -2,12 +2,9 @@
 {%load static%}
     {% block content%}
         <div class="row pt-4 justify-content-evenly h-100">
-            <div class="pb-4">
-                <a href="{% url 'index' %}"><button type="button" class="btn btn-outline-secondary blue-btn"><</button></a>
-            </div>
-            <div class="col-xs-12 col-sm-6">   
+            <div class="col-xs-12 col-md-6">   
                 <div class="row justify-content-sm-center h-100 pb-5">
-                    <div class="col">
+                    <div class="col-sm-12">
                         <div class="card shadow-lg">
                             <div class="card-body blue p-5">
                                 <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
@@ -34,7 +31,7 @@
                         
                     </div>
                     <div class="row pt-5 justify-content-sm-center h-100">
-                        <div class="col">
+                        <div class="col-sm-12">
                             <div class="card shadow-lg">
                                 <div class="card-body blue p-5">
                                     <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
@@ -78,20 +75,27 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-md-6">
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <h5>Order Summary</h5>
                         <hr>
-                        <div class="cart-row d-flex justify-content-around">
-                            <div class="p-2"><img class="row-image" src="#"></div>
-                            <div class="p-2"><p>Product 1</p></div>
-                            <div class="p-2"><p>$20.00</p></div>
-                            <div class="p-2"><p>x2</p></div>
+                        {%for item in items%}
+                        <div class="d-flex justify-content-between">
+                            <div class="p-2 flex-fill">
+                                <span>{{item.quantity}}x</span>
+                            </div>
+                            <div class="p-2 flex-fill"><img src="{{item.product.imageURL}}" class="xs-image"></div>
+                            <div class="p-2 flex-fill"><p>{{item.product.name}}</p></div>
+                            <div class="p-2 flex-fill"><p>${{item.product.price|floatformat:2}}</p></div>
                         </div>
+                        {%endfor%}
                         <hr>
-                        <h5>Items:   2</h5>
-                        <h5>Total:   $4</h5>
+                        <div class="d-flex justify-content-between">
+                            <h5 class="p-2">Items: {{order.get_order_quantity}}</h5>
+                            <h5 class="p-2">Total: ${{order.get_order_total}}</h5>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
