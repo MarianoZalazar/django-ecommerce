@@ -28,8 +28,9 @@ def store(request):
     context = {'products': products}
     return render(request, 'store/store.html', context)
 
-def product(request):
-    context = {}
+def product(request, pk):
+    product = ProductModel.objects.get(pk=pk)
+    context = {'product': product}
     return render(request, 'store/product.html', context)
 
 def cart(request):

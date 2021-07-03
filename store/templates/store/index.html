@@ -77,11 +77,13 @@
                 <div class="card-group multiple-items pt-3">
                     {%for product in products %}
                     <div class="card text-center h-100">
-                        <img src="{{product.imageURL}}" class="card-img-top index-store-image">
-                        <div class="card-body" style="color:#393D46">
-                          <h5 class="card-title text-truncate" style="font-size: 14px;">{{product.name}}</h5>
-                          <p class="card-text" style="font-size: 12px;">$ {{product.price|floatformat:2}}</p>
-                        </div>  
+                        <a href="{% url 'product' pk=product.pk %}">
+                            <img src="{{product.imageURL}}" class="card-img-top index-store-image">
+                            <div class="card-body" style="color:#393D46">
+                                <h5 class="card-title text-truncate" style="font-size: 14px;">{{product.name}}</h5>
+                                <p class="card-text" style="font-size: 12px;">$ {{product.price|floatformat:2}}</p>
+                            </div> 
+                        </a>     
                     </div>
                     {%endfor%}
                 </div>

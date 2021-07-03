@@ -148,7 +148,7 @@ label {
 
 .product-image {
   width: 250px;
-  height: 360px;
+  height: 300px;
 }
 
 .product-text .product-title {
@@ -157,5 +157,5 @@ label {
 }
 .product-text .product-desc {
   font-weight: 200;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }/*# sourceMappingURL=main.css.map */
