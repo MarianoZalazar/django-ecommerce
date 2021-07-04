@@ -30,12 +30,8 @@ def forgot(request):
 
 def store(request):
     items, order, cart_items = get_cart(request) 
-
-
-        
     products = ProductModel.objects.all()
     context = {'products': products, 'order': order, 'cart_items': cart_items}
-    
     return render(request, 'store/store.html', context)
 
 def product(request, pk):
@@ -44,8 +40,7 @@ def product(request, pk):
     context = {'product': product, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/product.html', context)
 
-def cart(request):
-    
+def cart(request): 
     items, order, cart_items = get_cart(request) 
     context = {'items': items, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/cart.html', context)
@@ -79,20 +74,16 @@ def update_item(request):
     return JsonResponse('item was added', safe=False)
 
 def process_order(request):
-    transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
-    if request.user.is_authenticated:
-        customer = request.user.customermodel
-        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
-        total = float(data['userData']['total'])
-        order.transaction_id = transaction_id
-        if total == float(order.get_order_total):
-            order.complete = True
-        order.save()
-        
-        ShippingModel.objects.create(customer=customer, order=order, **data['shippingData'])
-    else:
-        print('User not logged in')
-        
+    customer, order = get_order(request)
+    
+    total = float(data['userData']['total'])
+    order.transaction_id = datetime.datetime.now().timestamp() 
+    
+    if total == float(order.get_order_total):
+        order.complete = True
+    order.save()
+    
+    ShippingModel.objects.create(customer=customer, order=order, **data['shippingData'])
     
     return JsonResponse('Order Processed', safe=False)

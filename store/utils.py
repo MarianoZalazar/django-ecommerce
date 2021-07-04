@@ -1,6 +1,40 @@
 import json
 from .models import *
 
+def get_order(request):
+    if request.user.is_authenticated:
+        return user_order(request)
+    else:
+        return guest_order(request)
+
+def user_order(request):
+    customer = request.user.customermodel
+    order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
+    
+    return customer, order
+
+def guest_order(request):
+    email = data['userData']['email']
+    name = data['userData']['name']
+    cart = cookie_cart(request)
+    items = cart['items']
+    
+    customer, created = CustomerModel.objects.get_or_create(email=email)
+    customer.name = name
+    customer.save()
+    
+    order = OrderModel.objects.create(customer=customer)
+    
+    for item in items:
+        product = ProductModel.objects.get(id=item['product']['id'])
+        
+        order_item = OrderItemModel.objects.create(order=order, 
+                                                    product=product, 
+                                                    quantity=item['quantity'])
+    return customer, order
+
+
+
 def get_cart(request):
     if request.user.is_authenticated:
         return user_cart(request)
