@@ -25,13 +25,13 @@
                         <div class="d-flex flex-md-row flex-column justify-content-center pt-3 ps-5">
                             <div class="p-3 flex-fill"><img src="{{item.product.imageURL}}" class="sm-image"></div>
                             <div class="p-3 flex-fill"><p>{{item.product.name}}</p></div>
-                            <div class="p-3 flex-fill"><p>$ {{item.product.price|floatformat:2}}</p></div>
+                            <div class="p-3 flex-fill"><p>$ {{item.product.price}}</p></div>
                             <div class="p-3 flex-fill">
                                     <span>{{item.quantity}}</span>
                                     <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action='add'>
                                     <img src="{% static 'images/down.png' %}" alt="" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action='remove'>         
                             </div>
-                            <div class="p-3 flex-fill"><p>$ {{item.get_total|floatformat:2}}</p></div>
+                            <div class="p-3 flex-fill"><p>$ {{item.get_total}}</p></div>
                         </div>
                         <hr>
                         {%endfor%}

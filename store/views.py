@@ -3,18 +3,11 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
+from .utils import get_cart
 # Create your views here.
 
 def index(request):
-    if request.user.is_authenticated:
-        customer = request.user.customermodel
-        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitemmodel_set.all()
-        cart_items = order.get_order_quantity
-    else:
-        items = []
-        order = {'get_order_total': 0, 'get_order_quantity': 0}
-        cart_items = order['get_order_quantity']
+    items, order, cart_items = get_cart(request) 
     products = ProductModel.objects.all()[:8]
     context = {'products': products, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/index.html', context)
@@ -36,13 +29,9 @@ def forgot(request):
     return render(request, 'store/forgot.html', context)
 
 def store(request):
-    if request.user.is_authenticated:
-        customer = request.user.customermodel
-        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
-        cart_items = order.get_order_quantity
-    else:
-        order = {'get_order_total': 0, 'get_order_quantity': 0}
-        cart_items = order['get_order_quantity']
+    items, order, cart_items = get_cart(request) 
+
+
         
     products = ProductModel.objects.all()
     context = {'products': products, 'order': order, 'cart_items': cart_items}
@@ -50,44 +39,19 @@ def store(request):
     return render(request, 'store/store.html', context)
 
 def product(request, pk):
-    if request.user.is_authenticated:
-        customer = request.user.customermodel
-        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
-        cart_items = order.get_order_quantity
-    else:
-        order = {'get_order_total': 0, 'get_order_quantity': 0}
-        cart_items = order['get_order_quantity']
-        
+    items, order, cart_items = get_cart(request)    
     product = ProductModel.objects.get(pk=pk)
     context = {'product': product, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/product.html', context)
 
 def cart(request):
     
-    if request.user.is_authenticated:
-        customer = request.user.customermodel
-        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitemmodel_set.all()
-        cart_items = order.get_order_quantity
-    else:
-        items = []
-        order = {'get_order_total': 0, 'get_order_quantity': 0}
-        cart_items = order['get_order_quantity']
-        
+    items, order, cart_items = get_cart(request) 
     context = {'items': items, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/cart.html', context)
     
 def checkout(request):
-    if request.user.is_authenticated:
-        customer = request.user.customermodel
-        order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitemmodel_set.all()
-        cart_items = order.get_order_quantity
-    else:
-        items = []
-        order = {'get_order_total': 0, 'get_order_quantity': 0}
-        cart_items = order['get_order_quantity']
-        
+    items, order, cart_items = get_cart(request) 
     context = {'items': items, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/checkout.html', context)
 

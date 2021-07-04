@@ -6,12 +6,32 @@ for (i = 0; i < updateBtns.length; i++){
         var action = this.dataset.action
         console.log('productId', productId, 'Action', action)
         if (user == 'AnonymousUser') {
-            console.log('User not authenticated')
+            addCookieItem(productId, action)
         }
         else {
             updateUserOrder(productId, action)
         }
     })
+}
+
+function addCookieItem(productId, action) {
+    if (action == 'add') {
+        if (cart[productId] == undefined) {
+            cart[productId] = { 'quantity': 1 }
+        }
+        else {
+            cart[productId]['quantity'] += 1
+        }
+    }
+    if (action == 'remove' && cart[productId] != undefined) {
+        cart[productId]['quantity'] -= 1
+        if (cart[productId]['quantity'] <= 0) {
+            delete cart[productId];
+        }
+    }
+    document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
+    console.log('cart', cart)
+    location.reload()
 }
 
 function updateUserOrder(productId, action) {

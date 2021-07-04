@@ -87,13 +87,13 @@
                             </div>
                             <div class="p-2 flex-fill"><img src="{{item.product.imageURL}}" class="xs-image"></div>
                             <div class="p-2 flex-fill"><p>{{item.product.name}}</p></div>
-                            <div class="p-2 flex-fill"><p>${{item.product.price|floatformat:2}}</p></div>
+                            <div class="p-2 flex-fill"><p>${{item.product.price}}</p></div>
                         </div>
                         {%endfor%}
                         <hr>
                         <div class="d-flex justify-content-between">
                             <h5 class="p-2">Items: {{order.get_order_quantity}}</h5>
-                            <h5 class="p-2">Total: ${{order.get_order_total|floatformat:2}}</h5>
+                            <h5 class="p-2">Total: ${{order.get_order_total}}</h5>
                         </div>
                         
                     </div>
