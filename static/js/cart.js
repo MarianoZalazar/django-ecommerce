@@ -14,6 +14,7 @@ for (i = 0; i < updateBtns.length; i++){
     })
 }
 
+//Based on the productId and action manage the cart for an unauthenticated user
 function addCookieItem(productId, action) {
     if (action == 'add') {
         if (cart[productId] == undefined) {
@@ -30,10 +31,11 @@ function addCookieItem(productId, action) {
         }
     }
     document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
-    console.log('cart', cart)
     location.reload()
 }
 
+//Based on the productId and action make a request to an endpoint
+//that manages the updates of an authenticated user
 function updateUserOrder(productId, action) {
     var url = '/update_item/'
     fetch(url, {

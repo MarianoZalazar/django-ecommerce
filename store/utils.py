@@ -19,6 +19,8 @@ def guest_order(request):
     cart = cookie_cart(request)
     items = cart['items']
     
+    #This line uses a get_or_create method to
+    #make an unauthenticated customer based on the provided email
     customer, created = CustomerModel.objects.get_or_create(email=email)
     customer.name = name
     customer.save()
@@ -26,6 +28,7 @@ def guest_order(request):
     order = OrderModel.objects.create(customer=customer)
     
     for item in items:
+        #Check the cookie_cart function to understand the 'item' structure
         product = ProductModel.objects.get(id=item['product']['id'])
         
         order_item = OrderItemModel.objects.create(order=order, 
@@ -47,6 +50,7 @@ def cookie_cart(request):
     order = {'get_order_total': 0, 'get_order_quantity': 0}
     cart_items = order['get_order_quantity']
     for product in cart:
+        #In case a product is removed from the store while it's on a guest cart
         try:
             quantity = cart[product]['quantity']
             cart_items += quantity
@@ -67,6 +71,7 @@ def cookie_cart(request):
             }
             items.append(item)
         except:
+            #TODO Delete product from cart in cookies
             del cart[product]
             print('Product deleted')
     return items, order, cart_items

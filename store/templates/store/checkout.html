@@ -3,7 +3,7 @@
     {% block content%}
         <div class="row pt-4 justify-content-evenly h-100">
             <div class="col-xs-12 col-md-6">   
-            <form id="form" class="needs-validation" novalidate="" autocomplete="off">
+            <form id="user-form" class="needs-validation" novalidate="" autocomplete="off">
                 <div class="row justify-content-center h-100">
                     <div class="col-sm-12">
                         <div class="card shadow-lg mb-4" id="personal-info">
@@ -65,15 +65,9 @@
                     </div>
                     <div class="col-sm-3 pt-4">
                         <input id="form-button" class="btn blue-btn" type="submit" value="Continue">
-                    </div>                
+                    </div>      
                 </div>  
             </form>
-            <div class="card shadow-lg hidden mt-3" id="payment-info">
-                <div class="card-body">
-                    <small>Paypal Options</small>
-                    <button id='make-payment' type="button" class="btn blue-btn">Make Payment</button>                    
-                </div>
-            </div>
             </div>
             <div class="col-xs-12 col-md-6">
                 <div class="card shadow-lg">
@@ -100,6 +94,7 @@
                 </div>
             </div>
         </div>
+        
         <script type="text/javascript">
         var total = "{{order.get_order_total}}"
         if (user != 'AnonymousUser') {
@@ -107,22 +102,24 @@
         }
 
 
-        var form = document.getElementById('form')
-
+        var form = document.getElementById('user-form')
+        //TODO Check the form validations
         form.addEventListener('submit', function (e) {
-        e.preventDefault()
-            console.log('form submitted')
+            if (!form.checkValidity()) {
+					e.preventDefault()
+					e.stopPropagation()    
+			}
             document.getElementById('form-button').classList.add('hidden')
             document.getElementById('payment-info').classList.remove('hidden')
+			form.classList.add('was-validated')
             
         })
-
         document.getElementById('make-payment').addEventListener('click', function(e){
             submitFormData()
         })
 
+
         function submitFormData() {
-            console.log('Total', total)
 
             var userData = {
                 'name': null,
@@ -142,9 +139,6 @@
                 'state': form.state.value,
                 'zipcode': form.zipcode.value
             }
-
-            console.log('User', userData)
-            console.log('Shipping', shippingData)
             
             var url = '/process_order/'
             fetch(url, {
@@ -159,6 +153,7 @@
                     response.json()
                 })
                 .then((data) => {
+                    //Emptying cookie cart when order is finished
                     cart = {}
                     document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
                     alert('Transaction Completed')

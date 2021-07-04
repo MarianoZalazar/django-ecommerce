@@ -20,6 +20,10 @@ class ProductModel(models.Model):
     def __str__(self):
         return self.name
     
+    #A property decorator make an attribute out of a function
+    #That's why they're mentioned in the docs like 'managed attributes'
+    #This function tries to get the image for the template
+    #it's used to prevent no-images products
     @property
     def imageURL(self):
         try:
@@ -39,6 +43,8 @@ class OrderModel(models.Model):
     
     @property
     def get_order_total(self):
+        #This a reverse lookup based on the 1 to Many relationship
+        #between OrderModel and OrderItemModel
         orderitems = self.orderitemmodel_set.all()
         total = sum([orderitem.get_total for orderitem in orderitems])
         return total
@@ -60,7 +66,8 @@ class OrderItemModel(models.Model):
     
     @property
     def get_total(self):
-        return self.product.price * self.quantity    
+        return self.product.price * self.quantity
+    
 class ShippingModel(models.Model):
     customer = models.ForeignKey(CustomerModel, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(OrderModel, on_delete=models.SET_NULL, null=True)    

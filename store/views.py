@@ -50,6 +50,9 @@ def checkout(request):
     context = {'items': items, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/checkout.html', context)
 
+
+#This view is only used by authenticated users
+#the updates of a guest's cart are managed by cookies
 def update_item(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -80,6 +83,7 @@ def process_order(request):
     total = float(data['userData']['total'])
     order.transaction_id = datetime.datetime.now().timestamp() 
     
+    #Checks if the template total is the same as the stored in the DB
     if total == float(order.get_order_total):
         order.complete = True
     order.save()
