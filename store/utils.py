@@ -14,15 +14,18 @@ def user_order(request):
     return customer, order
 
 def guest_order(request):
+    data = json.loads(request.body)
     email = data['userData']['email']
-    name = data['userData']['name']
+    first_name = data['userData']['first_name']
+    last_name = data['userData']['last_name']
     cart = cookie_cart(request)
     items = cart['items']
     
     #This line uses a get_or_create method to
     #make an unauthenticated customer based on the provided email
     customer, created = CustomerModel.objects.get_or_create(email=email)
-    customer.name = name
+    customer.first_name = first_name
+    customer.last_name = last_name
     customer.save()
     
     order = OrderModel.objects.create(customer=customer)
@@ -49,31 +52,34 @@ def cookie_cart(request):
     items = []
     order = {'get_order_total': 0, 'get_order_quantity': 0}
     cart_items = order['get_order_quantity']
-    for product in cart:
-        #In case a product is removed from the store while it's on a guest cart
-        try:
-            quantity = cart[product]['quantity']
-            cart_items += quantity
-            product_cart = ProductModel.objects.get(id=product)
-            total = (product_cart.price) * quantity
-            order['get_order_total'] += total
-            order['get_order_quantity']  += quantity
-            
-            item = {
-                'product':{
-                    'id': product_cart.id,
-                    'name': product_cart.name,
-                    'price': product_cart.price,
-                    'imageURL': product_cart.imageURL
-                },
-                'quantity': quantity,
-                'get_total': total
-            }
-            items.append(item)
-        except:
-            #TODO Delete product from cart in cookies
-            del cart[product]
-            print('Product deleted')
+    try: 
+        for product in cart:
+            #In case a product is removed from the store while it's on a guest cart
+            try:
+                quantity = cart[product]['quantity']
+                cart_items += quantity
+                product_cart = ProductModel.objects.get(id=product)
+                total = (product_cart.price) * quantity
+                order['get_order_total'] += total
+                order['get_order_quantity']  += quantity
+                
+                item = {
+                    'product':{
+                        'id': product_cart.id,
+                        'name': product_cart.name,
+                        'price': product_cart.price,
+                        'imageURL': product_cart.imageURL
+                    },
+                    'quantity': quantity,
+                    'get_total': total
+                }
+                items.append(item)
+            except:
+                #TODO Delete product from cart in cookies
+                del cart[product]
+                print('Product deleted')
+    except:
+        pass
     return items, order, cart_items
 
 def user_cart(request):

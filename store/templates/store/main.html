@@ -37,7 +37,7 @@
     <title>Volkshop</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm">
+    <nav class="navbar navbar-expand-sm store-navbar">
       <a class="navbar-brand logo" href="{% url 'index' %}">Volkshop</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,7 +48,11 @@
               <img src="{% static 'images/cart.png' %}" class="xs-image pe-1" alt="cart">
           </a>
           <p id="cart-total">{{cart_items}}</p>
-          <a href="{% url 'userlogin' %}" class="ps-3"><button type="button" class="btn blue-btn">Login</button></a>
+          {%if request.user.is_authenticated %}
+            <a href="{% url 'user:userlogin' %}" class="ps-3"><button type="button" class="btn blue-btn">Log Off</button></a>
+          {% else %}
+            <a href="{% url 'user:userlogin' %}" class="ps-3"><button type="button" class="btn blue-btn">Login</button></a>
+          {%endif%}
         </div>
       </div>
     </nav>

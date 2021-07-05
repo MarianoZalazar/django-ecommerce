@@ -3,7 +3,7 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
-from .utils import get_cart
+from .utils import get_cart, get_order
 # Create your views here.
 
 def index(request):
@@ -12,21 +12,6 @@ def index(request):
     context = {'products': products, 'order': order, 'cart_items': cart_items}
     return render(request, 'store/index.html', context)
 
-def login(request):
-    context = {}
-    return render(request, 'store/login.html', context)
-
-def register(request):
-    context = {}
-    return render(request, 'store/register.html', context)
-
-def reset(request):
-    context = {}
-    return render(request, 'store/reset.html', context)
-
-def forgot(request):
-    context = {}
-    return render(request, 'store/forgot.html', context)
 
 def store(request):
     items, order, cart_items = get_cart(request) 
@@ -77,7 +62,6 @@ def update_item(request):
     return JsonResponse('item was added', safe=False)
 
 def process_order(request):
-    data = json.loads(request.body)
     customer, order = get_order(request)
     
     total = float(data['userData']['total'])

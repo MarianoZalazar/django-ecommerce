@@ -1,15 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 
 class CustomerModel(models.Model):
-    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, null=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
     email = models.EmailField(max_length=200)
     
     def __str__(self):
-        return self.name
+        return self.email
     
 class ProductModel(models.Model):
     name = models.CharField(max_length=200)

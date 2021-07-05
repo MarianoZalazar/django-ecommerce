@@ -9,20 +9,27 @@
                         <div class="card shadow-lg mb-4" id="personal-info">
                             <div class="card-body blue p-5">
                                 <div class="row">
-                                      <div class="col">
+                                    <div class="col-6">
+                                        <label class="mb-2" for="first_name">First Name</label>
+                                        <input id="first_name" type="text" class="form-control" name="first_name" value="" required autofocus>
+                                        <div class="invalid-feedback">
+                                            First Name is required	
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="mb-2" for="last_name">Last Name</label>
+                                        <input id="last_name" type="text" class="form-control" name="last_name" value="" required autofocus>
+                                        <div class="invalid-feedback">
+                                            Last Name is required	
+                                        </div>
+                                    </div>
+                                    <div class="col-12 pt-2">
                                         <label class="mb-2" for="email">E-Mail</label>
                                         <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
                                         <div class="invalid-feedback">
                                             Email is invalid
                                         </div>
-                                      </div>
-                                      <div class="col">
-                                        <label class="mb-2" for="name">Name</label>
-                                        <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
-                                        <div class="invalid-feedback">
-                                            Name is required	
-                                        </div>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -122,12 +129,15 @@
         function submitFormData() {
 
             var userData = {
-                'name': null,
+                'first_name': null,
+                'last_name': null,
                 'email': null,
                 'total': total
             }
 
             if (user == 'AnonymousUser') {
+                userData.first_name = form.first_name.value
+                userData.last_name = form.last_name.value
                 userData.name = form.name.value
                 userData.email = form.email.value
             }
