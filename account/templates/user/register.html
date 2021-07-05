@@ -1,0 +1,65 @@
+{%extends 'user/main.html'%}
+{%load static%}
+  {% block content%}
+			<div class="row pt-4 justify-content-sm-center align-items-center h-100">
+				<div class="col-xxl-4 col-md-6 col-sm-9">
+					
+					<div class="card shadow-lg">
+						<div class="card-body p-5">
+							<h3 class="card-title mb-3">Register</h3>
+							<form class="row g-3 signin" method="post">{% csrf_token %}
+								<div class="col-md-6">
+								  <label for="first-name" class="form-label label-black">First Name</label>
+								  <input type="text" class="form-control" name="first_name" id="first-name" required>
+								</div>
+								<div class="col-md-6">
+								  <label for="last-name" class="form-label label-black">Last Name</label>
+								  <input type="text" class="form-control" name="last_name" id="last-name" required>
+								</div>
+								<div class="col-12">
+									<label for="email-address" class="form-label label-black">Email Address</label>
+									<input type="email" class="form-control" name="email" id="email-address" required>
+								  </div>
+								<div class="col-12">
+								  <label for="password1" class="form-label label-black">Password</label>
+								  <input type="password" class="form-control" name="password1" id="password1" required>
+								</div>
+								<div class="col-12">
+								  <label for="password2" class="form-label label-black">Verify Password</label>
+								  <input type="password" class="form-control" name="password2" id="password2" required>
+								</div>
+
+								<div class="col-12">
+									<p class="mb-3 label-black">
+										By registering you agree with our terms and condition.
+									</p>
+								</div>
+								
+								{%for field in registration_form %}
+								<p>
+									{% for error in field.errors %}
+									<p style="color: red">{{error}}</p>
+									{%endfor%}
+								</p>
+								{%endfor%}
+								{%if registration_form.non_field_errors%}
+								<div style="color:red">
+									<p>{{registration_form.non_field_errors}}</p>
+								</div>
+								{%endif%}
+								<div class="align-items-center d-flex">
+									<button type="submit" class="btn blue-btn ms-auto">
+										Register	
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="card-footer py-3 border-0">
+							<div class="text-center">
+								Already have an account? <a href="{% url 'userlogin' %}">Login</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	{%endblock content %}    

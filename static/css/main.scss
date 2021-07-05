@@ -17,8 +17,9 @@ a {
 span,
 p,
 h1,
-h3 {
-  color: #393d46;
+h3,
+.label-black {
+  color: #393d46 !important;
 }
 
 label {
@@ -39,7 +40,27 @@ label {
   display: none !important;
 }
 
-.navbar {
+.split-color {
+  background: rgb(9, 9, 121) !important;
+  background: linear-gradient(
+    180deg,
+    #002474 0%,
+    #002474 51%,
+    rgba(247, 247, 247, 1) 51%
+  ) !important;
+}
+
+.user-navbar {
+  padding-top: 2.5%;
+  .logo {
+    padding-left: 15%;
+    font-size: 36px;
+    font-weight: 600;
+    color: #ffffff !important;
+  }
+}
+
+.store-navbar {
   background-color: #f4f5fa;
   padding-top: 2.5%;
   padding-bottom: 2.5%;
@@ -61,7 +82,7 @@ label {
     }
     #cart-total {
       text-align: center;
-      color: #fff;
+      color: #ffffff !important;
       background-color: #002474;
       width: 20px;
       height: 20px;

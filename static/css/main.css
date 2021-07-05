@@ -19,8 +19,9 @@ a {
 span,
 p,
 h1,
-h3 {
-  color: #393d46;
+h3,
+.label-black {
+  color: #393d46 !important;
 }
 
 label {
@@ -41,30 +42,45 @@ label {
   display: none !important;
 }
 
-.navbar {
+.split-color {
+  background: #090979 !important;
+  background: linear-gradient(180deg, #002474 0%, #002474 51%, #f7f7f7 51%) !important;
+}
+
+.user-navbar {
+  padding-top: 2.5%;
+}
+.user-navbar .logo {
+  padding-left: 15%;
+  font-size: 36px;
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+.store-navbar {
   background-color: #f4f5fa;
   padding-top: 2.5%;
   padding-bottom: 2.5%;
   text-align: center;
 }
-.navbar .logo {
+.store-navbar .logo {
   padding-left: 15%;
   font-size: 36px;
   font-weight: 600;
   color: #393d46;
 }
-.navbar .nav-links {
+.store-navbar .nav-links {
   display: flex;
   padding-right: 20%;
 }
-.navbar .nav-links a {
+.store-navbar .nav-links a {
   color: #ffffff;
   font-size: 18px;
   font-weight: 200;
 }
-.navbar .nav-links #cart-total {
+.store-navbar .nav-links #cart-total {
   text-align: center;
-  color: #fff;
+  color: #ffffff !important;
   background-color: #002474;
   width: 20px;
   height: 20px;
