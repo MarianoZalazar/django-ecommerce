@@ -3,36 +3,54 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
+from .forms import *
 from .utils import get_cart, get_order
 # Create your views here.
 
 def index(request):
-    items, order, cart_items = get_cart(request) 
+    cart = get_cart(request) 
     products = ProductModel.objects.all()[:8]
-    context = {'products': products, 'order': order, 'cart_items': cart_items}
+    context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items'],  'products': products}
     return render(request, 'store/index.html', context)
 
 
 def store(request):
-    items, order, cart_items = get_cart(request) 
+    cart = get_cart(request)
     products = ProductModel.objects.all()
-    context = {'products': products, 'order': order, 'cart_items': cart_items}
+    context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items'], 'products': products}
     return render(request, 'store/store.html', context)
 
 def product(request, pk):
-    items, order, cart_items = get_cart(request)    
+    cart = get_cart(request) 
     product = ProductModel.objects.get(pk=pk)
-    context = {'product': product, 'order': order, 'cart_items': cart_items}
+    context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items'], 'product':product}
     return render(request, 'store/product.html', context)
 
 def cart(request): 
-    items, order, cart_items = get_cart(request) 
-    context = {'items': items, 'order': order, 'cart_items': cart_items}
+    cart = get_cart(request) 
+    context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items']}
     return render(request, 'store/cart.html', context)
     
 def checkout(request):
-    items, order, cart_items = get_cart(request) 
-    context = {'items': items, 'order': order, 'cart_items': cart_items}
+    cart = get_cart(request)
+    context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items']}
+    if request.POST:
+        usershippingform = UserShippingDataForm(request.POST)
+        if usershippingform.is_valid():
+            customer, order = get_order(request, usershippingform)
+            total = usershippingform.cleaned_data['total'] 
+            order.transaction_id = datetime.datetime.now().timestamp() 
+            if total == float(order.get_order_total):
+                order.complete = True
+            order.save()
+            ShippingModel.objects.create(customer=customer, 
+                                         order=order, 
+                                         city=usershippingform.cleaned_data['city'],
+                                         state=usershippingform.cleaned_data['state'],
+                                         zipcode=usershippingform.cleaned_data['zipcode'],
+                                         address=usershippingform.cleaned_data['address'])
+        else:
+            context['usershippingform'] = usershippingform
     return render(request, 'store/checkout.html', context)
 
 
@@ -62,16 +80,23 @@ def update_item(request):
     return JsonResponse('item was added', safe=False)
 
 def process_order(request):
-    customer, order = get_order(request)
     
-    total = float(data['userData']['total'])
-    order.transaction_id = datetime.datetime.now().timestamp() 
-    
-    #Checks if the template total is the same as the stored in the DB
-    if total == float(order.get_order_total):
-        order.complete = True
-    order.save()
-    
-    ShippingModel.objects.create(customer=customer, order=order, **data['shippingData'])
-    
+    if request.POST:
+        usershippingform = UserShippingDataForm(request.POST)
+        if usershippingform.is_valid():
+            customer, order = get_order(request, usershippingform)
+            total = usershippingform.cleaned_data['total'] 
+            order.transaction_id = datetime.datetime.now().timestamp() 
+            print('ad')
+            if total == float(order.get_order_total):
+                order.complete = True
+            order.save()
+            ShippingModel.objects.create(customer=customer, 
+                                         order=order, 
+                                         city=usershippingform.cleaned_data['city'],
+                                         state=usershippingform.cleaned_data['state'],
+                                         zipcode=usershippingform.cleaned_data['zipcode'],
+                                         address=usershippingform.cleaned_data['address'])
+    else:
+        context['usershippingform'] = UserShippingDataForm()
     return JsonResponse('Order Processed', safe=False)

@@ -10,7 +10,7 @@
             {% for product in products %}
             <div class="col products">
                 <div class="card text-center h-100">
-                    <a href="{%url 'product' pk=product.pk%}">
+                    <a href="{%url 'store:product' pk=product.pk%}">
                         <img src="{{product.imageURL}}" class="card-img-top index-store-image">
                         <div class="card-body" style="color:#393D46">
                             <h5 class="card-title" style="font-size: 14px;">{{product.name}}</h5>

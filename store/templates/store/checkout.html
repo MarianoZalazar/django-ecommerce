@@ -3,9 +3,16 @@
     {% block content%}
         <div class="row pt-4 justify-content-evenly h-100">
             <div class="col-xs-12 col-md-6">   
-            <form id="user-form" class="needs-validation" novalidate="" autocomplete="off">
+            <form method="post">
+                {%csrf_token%}
                 <div class="row justify-content-center h-100">
                     <div class="col-sm-12">
+                        {%if request.user.is_authenticated %}
+                            <input id="first_name" type="text" class="form-control hidden" name="first_name" value="{{request.user.customermodel.first_name}}" required autofocus>
+                            <input id="last_name" type="text" class="form-control hidden" name="last_name" value="{{request.user.customermodel.last_name}}" required autofocus>
+                            <input id="email" type="email" class="form-control hidden" name="email" value="{{request.user.customermodel.email}}" required autofocus>
+
+                        {%else%}
                         <div class="card shadow-lg mb-4" id="personal-info">
                             <div class="card-body blue p-5">
                                 <div class="row">
@@ -33,7 +40,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card shadow-lg " id="shipping-info">
+                        {%endif%}
+                        <div class="card shadow-lg ">
                             <div class="card-body blue p-5">
                                 <div class="row">
                                         <div class="col">
@@ -70,6 +78,17 @@
                             </div>
                         </div>    
                     </div>
+                    <div class="col-12 d-flex justify-content-sm-between">
+                        <input type="number" class="form-control hidden" name="total" value="{{order.get_order_total}}">
+                        {%for field in usershippingform %}
+                            {% for error in field.errors %}
+                                <p style="color: red !important">{{field.label}} {{error}}</p>
+                            {%endfor%}
+                        {%endfor%}
+                        {%if usershippingform.non_field_errors%}
+                            <p style="color:red !important">{{usershippingform.non_field_errors}}</p>
+                        {%endif%}
+                    </div>
                     <div class="col-sm-3 pt-4">
                         <input id="form-button" class="btn blue-btn" type="submit" value="Continue">
                     </div>      
@@ -101,74 +120,4 @@
                 </div>
             </div>
         </div>
-        
-        <script type="text/javascript">
-        var total = "{{order.get_order_total}}"
-        if (user != 'AnonymousUser') {
-            document.getElementById('personal-info').classList.add('hidden')
-        }
-
-
-        var form = document.getElementById('user-form')
-        //TODO Check the form validations
-        form.addEventListener('submit', function (e) {
-            if (!form.checkValidity()) {
-					e.preventDefault()
-					e.stopPropagation()    
-			}
-            document.getElementById('form-button').classList.add('hidden')
-            document.getElementById('payment-info').classList.remove('hidden')
-			form.classList.add('was-validated')
-            
-        })
-        document.getElementById('make-payment').addEventListener('click', function(e){
-            submitFormData()
-        })
-
-
-        function submitFormData() {
-
-            var userData = {
-                'first_name': null,
-                'last_name': null,
-                'email': null,
-                'total': total
-            }
-
-            if (user == 'AnonymousUser') {
-                userData.first_name = form.first_name.value
-                userData.last_name = form.last_name.value
-                userData.name = form.name.value
-                userData.email = form.email.value
-            }
-            
-
-            var shippingData = {
-                'address': form.address.value,
-                'city': form.city.value,
-                'state': form.state.value,
-                'zipcode': form.zipcode.value
-            }
-            
-            var url = '/process_order/'
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrf_token
-                },
-                body: JSON.stringify({ 'userData': userData, 'shippingData': shippingData })
-            })
-                .then((response) => {
-                    response.json()
-                })
-                .then((data) => {
-                    //Emptying cookie cart when order is finished
-                    cart = {}
-                    document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
-                    alert('Transaction Completed')
-                    window.location.href="{% url 'index'%}"
-            })
-        }
-        </script>
     {%endblock content %}

@@ -1,11 +1,11 @@
 import json
 from .models import *
 
-def get_order(request):
+def get_order(request, usershippingform):
     if request.user.is_authenticated:
         return user_order(request)
     else:
-        return guest_order(request)
+        return guest_order(request, usershippingform)
 
 def user_order(request):
     customer = request.user.customermodel
@@ -13,11 +13,10 @@ def user_order(request):
     
     return customer, order
 
-def guest_order(request):
-    data = json.loads(request.body)
-    email = data['userData']['email']
-    first_name = data['userData']['first_name']
-    last_name = data['userData']['last_name']
+def guest_order(request, usershippingform):
+    email = usershippingform.cleaned_data['email']
+    first_name = usershippingform.cleaned_data['first_name']
+    last_name = usershippingform.cleaned_data['last_name']
     cart = cookie_cart(request)
     items = cart['items']
     
@@ -48,43 +47,41 @@ def get_cart(request):
         return cookie_cart(request)
 
 def cookie_cart(request):
-    cart = json.loads(request.COOKIES.get('cart', {}))
+    try: 
+        cart = json.loads(request.COOKIES['cart'])
+    except:
+        cart = {}
     items = []
     order = {'get_order_total': 0, 'get_order_quantity': 0}
     cart_items = order['get_order_quantity']
-    try: 
-        for product in cart:
-            #In case a product is removed from the store while it's on a guest cart
-            try:
-                quantity = cart[product]['quantity']
-                cart_items += quantity
-                product_cart = ProductModel.objects.get(id=product)
-                total = (product_cart.price) * quantity
-                order['get_order_total'] += total
-                order['get_order_quantity']  += quantity
-                
-                item = {
-                    'product':{
-                        'id': product_cart.id,
-                        'name': product_cart.name,
-                        'price': product_cart.price,
-                        'imageURL': product_cart.imageURL
-                    },
-                    'quantity': quantity,
-                    'get_total': total
-                }
-                items.append(item)
-            except:
-                #TODO Delete product from cart in cookies
-                del cart[product]
-                print('Product deleted')
-    except:
-        pass
-    return items, order, cart_items
+    for product in cart:
+        #In case a product is removed from the store while it's on a guest cart
+        try:
+            quantity = cart[product]['quantity']
+            cart_items += quantity
+            product_cart = ProductModel.objects.get(id=product)
+            total = (product_cart.price) * quantity
+            order['get_order_total'] += total
+            order['get_order_quantity']  += quantity
+            
+            item = {
+                'product':{
+                    'id': product_cart.id,
+                    'name': product_cart.name,
+                    'price': product_cart.price,
+                    'imageURL': product_cart.imageURL
+                },
+                'quantity': quantity,
+                'get_total': total
+            }
+            items.append(item)
+        except:
+            del cart[product]
+    return {'items': items, 'order':order, 'cart_items':cart_items}
 
 def user_cart(request):
     customer = request.user.customermodel
     order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
     items = order.orderitemmodel_set.all()
     cart_items = order.get_order_quantity
-    return items, order, cart_items
+    return {'items': items, 'order':order, 'cart_items':cart_items}

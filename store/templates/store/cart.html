@@ -8,7 +8,7 @@
                         <div class="d-flex flex-md-row flex-column justify-content-between pt-3 ps-5">
                             <div class="p-5"><h5>Items: <strong>{{order.get_order_quantity}}</strong></h5></div>
                             <div class="p-5"><h5>Total: <strong>${{order.get_order_total}}</strong></h5></div>
-                            <div class="p-5"><a href="{% url 'checkout' %}" class="ps-3"><button type="button" class="btn blue-btn">Checkout</button></a></div>
+                            <div class="p-5"><a href="{% url 'store:checkout' %}" class="ps-3"><button type="button" class="btn blue-btn">Checkout</button></a></div>
                         </div>
                         <hr>
 
@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <hr>
                         {%for item in items%}
-                        <div class="d-flex flex-md-row flex-column justify-content-center pt-3 ps-5">
+                        <div class="d-flex flex-md-row flex-column justify-content-center align-items-center pt-3 ps-5">
                             <div class="p-3 flex-fill"><img src="{{item.product.imageURL}}" class="sm-image"></div>
                             <div class="p-3 flex-fill"><p>{{item.product.name}}</p></div>
                             <div class="p-3 flex-fill"><p>$ {{item.product.price}}</p></div>
