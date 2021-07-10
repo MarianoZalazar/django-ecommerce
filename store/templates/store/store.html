@@ -8,17 +8,34 @@
             </div>
 
             {% for product in products %}
-            <div class="col products">
-                <div class="card text-center h-100">
-                    <a href="{%url 'store:product' pk=product.pk%}">
-                        <img src="{{product.imageURL}}" class="card-img-top index-store-image">
-                        <div class="card-body" style="color:#393D46">
-                            <h5 class="card-title" style="font-size: 14px;">{{product.name}}</h5>
-                            <p class="card-text" style="font-size: 12px;">$ {{product.price}}</p>
-                        </div> 
-                    </a>  
-                </div>
-            </div>
+                {%if product.is_sale %}
+                    <div class="col products">
+                        <div class="card text-center h-100 sale">
+                            <a href="{% url 'store:product' pk=product.pk %}">
+                                <img src="{{product.imageURL}}" class="card-img-top index-store-image">
+                                <div class="card-body" style="color:#393D46">
+                                    <h5 class="card-title text-truncate" style="font-size: 14px;">{{product.name}}</h5>
+                                    <div class="card-text">
+                                        <span style="font-size: 10px; text-decoration: line-through; color:#a7a7a8">$ {{product.price|floatformat:2}}</span>
+                                        <span style="font-size: 12px;color: green !important;">$ {{product.sale_price|floatformat:2}}</span>
+                                    </div> 
+                                </div> 
+                            </a>     
+                        </div>
+                    </div>
+                {%else%}
+                    <div class="col products">
+                        <div class="card text-center h-100">
+                            <a href="{%url 'store:product' pk=product.pk%}">
+                                <img src="{{product.imageURL}}" class="card-img-top index-store-image">
+                                <div class="card-body" style="color:#393D46">
+                                    <h5 class="card-title" style="font-size: 14px;">{{product.name}}</h5>
+                                    <p class="card-text" style="font-size: 12px;">$ {{product.price}}</p>
+                                </div> 
+                            </a>  
+                        </div>
+                    </div>
+                {%endif%}
             {%endfor%}
         </div>
     </div>

@@ -5,3 +5,4 @@ TODO:
 - Integrate payment methods (MercadoPago)
 - Complete user manage system (Login, Register, Forgot, Reset)
 - Wrap into a RESTful API using DRF
+- Make CRM

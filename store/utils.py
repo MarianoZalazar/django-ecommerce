@@ -60,7 +60,10 @@ def cookie_cart(request):
             quantity = cart[product]['quantity']
             cart_items += quantity
             product_cart = ProductModel.objects.get(id=product)
-            total = (product_cart.price) * quantity
+            if product_cart.is_sale:
+                total = product_cart.sale_price * quantity
+            else:
+                total = (product_cart.price) * quantity
             order['get_order_total'] += total
             order['get_order_quantity']  += quantity
             
@@ -69,19 +72,22 @@ def cookie_cart(request):
                     'id': product_cart.id,
                     'name': product_cart.name,
                     'price': product_cart.price,
-                    'imageURL': product_cart.imageURL
+                    'imageURL': product_cart.imageURL,
+                    'is_sale': product_cart.is_sale,
+                    'sale_price': product_cart.sale_price
                 },
                 'quantity': quantity,
                 'get_total': total
             }
             items.append(item)
         except:
-            del cart[product]
-    return {'items': items, 'order':order, 'cart_items':cart_items}
+            pass
+            #del cart[product]
+    return {'items': items, 'order':order, 'cart_items':cart_items, 'cart': cart}
 
 def user_cart(request):
     customer = request.user.customermodel
     order, created = OrderModel.objects.get_or_create(customer=customer, complete=False)
     items = order.orderitemmodel_set.all()
     cart_items = order.get_order_quantity
-    return {'items': items, 'order':order, 'cart_items':cart_items}
+    return {'items': items, 'order':order, 'cart_items':cart_items, 'cart': None}

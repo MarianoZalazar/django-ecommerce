@@ -22,12 +22,14 @@ def user_login(request):
             user = authenticate(email=email, password=password, backend='account.backends.CaseInsensitiveModelBackend')
             if user is not None:
                 login(request, user, backend='account.backends.CaseInsensitiveModelBackend')
-                return redirect('/')
+                response = redirect('/')
+                response.delete_cookie('cart')
+                return response
         else:
             context['loginform'] = form
     return render(request, 'user/login.html', context)
 
-def register(request, *args, **kwargs):
+def register(request):
     
     if request.user.is_authenticated:
         return redirect('/')
@@ -36,21 +38,24 @@ def register(request, *args, **kwargs):
     if request.POST:
         userform = UserDataForm(request.POST)
         if userform.is_valid():
+            
+            #Creating an account based in the form data
             email = userform.cleaned_data.get('email')
             raw_password = userform.cleaned_data.get('password2')
             first_name = userform.cleaned_data.get('first_name')
             last_name = userform.cleaned_data.get('last_name') 
             account = Account.objects.create_user(email=email, password=raw_password)
+            
+            #Linking the created account with a customermodel
             customer, created = CustomerModel.objects.get_or_create(email=email)
             customer.user = account
             customer.first_name = first_name
             customer.last_name = last_name
             customer.save()
+            
+            
             if account is not None:
                 login(request, account, backend='account.backends.CaseInsensitiveModelBackend')            
-            destination = kwargs.get('next')
-            if destination:
-               return(redirect(destination))
             return redirect('/')
         else:
              context['createuserform'] = userform

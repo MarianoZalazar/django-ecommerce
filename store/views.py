@@ -8,9 +8,10 @@ from .utils import get_cart, get_order
 # Create your views here.
 
 def index(request):
-    cart = get_cart(request) 
-    products = ProductModel.objects.all()[:8]
-    context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items'],  'products': products}
+    cart = get_cart(request)
+    products_sale = ProductModel.objects.all().filter(is_sale=True)[:8]
+    products = ProductModel.objects.all().filter(is_sale=False)[:8]
+    context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items'],'products_sale':products_sale, 'products': products}
     return render(request, 'store/index.html', context)
 
 
@@ -29,7 +30,10 @@ def product(request, pk):
 def cart(request): 
     cart = get_cart(request) 
     context = {'items': cart['items'], 'order': cart['order'], 'cart_items': cart['cart_items']}
-    return render(request, 'store/cart.html', context)
+    response = render(request, 'store/cart.html', context)
+    # if (new_cart := cart['cart']) is not None:
+    #     response.set_cookie('cart', new_cart)
+    return response
     
 def checkout(request):
     cart = get_cart(request)
@@ -87,7 +91,6 @@ def process_order(request):
             customer, order = get_order(request, usershippingform)
             total = usershippingform.cleaned_data['total'] 
             order.transaction_id = datetime.datetime.now().timestamp() 
-            print('ad')
             if total == float(order.get_order_total):
                 order.complete = True
             order.save()

@@ -25,7 +25,11 @@
                         <div class="d-flex flex-md-row flex-column justify-content-center align-items-center pt-3 ps-5">
                             <div class="p-3 flex-fill"><img src="{{item.product.imageURL}}" class="sm-image"></div>
                             <div class="p-3 flex-fill"><p>{{item.product.name}}</p></div>
-                            <div class="p-3 flex-fill"><p>$ {{item.product.price}}</p></div>
+                            {%if item.product.is_sale%}
+                                <div class="p-3 flex-fill"><p>$ {{item.product.sale_price}}</p></div>
+                            {%else%}
+                                <div class="p-3 flex-fill"><p>$ {{item.product.price}}</p></div>
+                            {%endif%}
                             <div class="p-3 flex-fill">
                                     <span>{{item.quantity}}</span>
                                     <img src="{% static 'images/up.png' %}" alt="" class="chg-quantity update-cart" data-product="{{item.product.id}}" data-action='add'>

@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 AUTH_USER_MODEL = 'account.Account'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.AllowAllUsersModelBackend',
-    'account.backends.CaseInsensitiveModelBackend')
+    'account.backends.CaseInsensitiveModelBackend',)
     
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
