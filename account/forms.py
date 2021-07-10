@@ -38,8 +38,18 @@ class CreateCustomerForm(forms.ModelForm):
             return last_name.lower()
         else:
             raise forms.ValidationError('Last Name must be alphabetical')  
+      
+      
+      
+class LoginForm(forms.Form):
+    email = forms.EmailField(max_length=200)
+    password = forms.CharField(
+        label='Password',
+        strip=False,
+        widget=forms.PasswordInput()
+    )
         
-
+        
 class UserShippingDataForm(forms.Form):
     first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
@@ -48,9 +58,6 @@ class UserShippingDataForm(forms.Form):
     city = forms.CharField(max_length=200)
     state = forms.CharField(max_length=200)
     zipcode = forms.CharField(max_length=200)    
-
-    
-    
     
     def clean_email(self):
         email = self.cleaned_data['email'].lower()

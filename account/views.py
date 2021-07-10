@@ -6,9 +6,25 @@ from .models import Account
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import make_password
 from store.models import CustomerModel
+
+
 # Create your views here.
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    
     context = {}
+    if request.POST:
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = request.POST['email']
+            password = request.POST['password']
+            user = authenticate(email=email, password=password, backend='account.backends.CaseInsensitiveModelBackend')
+            if user is not None:
+                login(request, user, backend='account.backends.CaseInsensitiveModelBackend')
+                return redirect('/')
+        else:
+            context['loginform'] = form
     return render(request, 'user/login.html', context)
 
 def register(request, *args, **kwargs):
@@ -21,11 +37,10 @@ def register(request, *args, **kwargs):
         userform = UserDataForm(request.POST)
         if userform.is_valid():
             email = userform.cleaned_data.get('email')
-            raw_password = make_password(userform.cleaned_data.get('password2'))
+            raw_password = userform.cleaned_data.get('password2')
             first_name = userform.cleaned_data.get('first_name')
             last_name = userform.cleaned_data.get('last_name') 
-            account = Account.objects.create(email=email, password=raw_password)
-            account.save()
+            account = Account.objects.create_user(email=email, password=raw_password)
             customer, created = CustomerModel.objects.get_or_create(email=email)
             customer.user = account
             customer.first_name = first_name
