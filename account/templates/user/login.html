@@ -1,4 +1,4 @@
-{%extends 'user/main.html'%}
+{%extends 'main.html'%}
 {%load static%}
     {% block content%}
 		<div class="row justify-content-sm-center align-items-center h-100">
@@ -20,7 +20,7 @@
 								<div class="mb-3">
 									<div class="mb-2 w-100">
 										<label class="label-black"for="password">Password</label>
-										<a href="{% url 'user:forgot' %}" class="float-end">
+										<a href="{% url 'user:password_reset' %}" class="float-end">
 											Forgot Password?
 										</a>
 									</div>

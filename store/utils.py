@@ -31,8 +31,10 @@ def guest_order(request, usershippingform):
     
     for item in items:
         #Check the cookie_cart function to understand the 'item' structure
-        product = ProductModel.objects.get(id=item['product']['id'])
-        
+        try:
+            product = ProductModel.objects.get(id=item['product']['id'])
+        except:
+            continue
         order_item = OrderItemModel.objects.create(order=order, 
                                                     product=product, 
                                                     quantity=item['quantity'])
@@ -54,7 +56,7 @@ def cookie_cart(request):
     items = []
     order = {'get_order_total': 0, 'get_order_quantity': 0}
     cart_items = order['get_order_quantity']
-    for product in cart:
+    for product in list(cart.keys()):
         #In case a product is removed from the store while it's on a guest cart
         try:
             quantity = cart[product]['quantity']
@@ -81,8 +83,7 @@ def cookie_cart(request):
             }
             items.append(item)
         except:
-            pass
-            #del cart[product]
+            continue
     return {'items': items, 'order':order, 'cart_items':cart_items, 'cart': cart}
 
 def user_cart(request):
