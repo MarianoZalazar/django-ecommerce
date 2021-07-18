@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
 import datetime
@@ -54,8 +54,6 @@ def cart(request):
         'cart_items': cart['cart_items']
     }
     response = render(request, 'store/cart.html', context)
-    # if (new_cart := cart['cart']) is not None:
-    #     response.set_cookie('cart', new_cart)
     return response
 
 
@@ -110,13 +108,12 @@ def payment_output(request):
     response = redirect('/')
     try:
         data = request.GET
-        print(data)
         if data['collection_status'] == 'approved':
             order_id = data['external_reference']
             order = OrderModel.objects.get(id=order_id)
             order.complete = True
             order.save()
-            response.set_cookie('cart', {})
+            response.delete_cookie('cart')
     except:
         pass
     return response
@@ -147,26 +144,3 @@ def update_item(request):
         order_item.delete()
 
     return JsonResponse('item was added', safe=False)
-
-
-def process_order(request):
-
-    if request.POST:
-        usershippingform = UserShippingDataForm(request.POST)
-        if usershippingform.is_valid():
-            customer, order = get_order(request, usershippingform)
-            total = usershippingform.cleaned_data['total']
-            order.transaction_id = datetime.datetime.now().timestamp()
-            if total == float(order.get_order_total):
-                order.complete = True
-            order.save()
-            ShippingModel.objects.create(
-                customer=customer,
-                order=order,
-                city=usershippingform.cleaned_data['city'],
-                state=usershippingform.cleaned_data['state'],
-                zipcode=usershippingform.cleaned_data['zipcode'],
-                address=usershippingform.cleaned_data['address'])
-    else:
-        context['usershippingform'] = UserShippingDataForm()
-    return JsonResponse('Order Processed', safe=False)
