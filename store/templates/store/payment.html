@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Volkshop</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm user-navbar blue">
+        <a class="navbar-brand logo" href="{% url 'store:index' %}">Volkshop</a>
+      </nav>
+    
+    <div class="container-fluid h-100 split-color">
+        {%if error%}
+            <div class="row pt-5 justify-content-sm-center align-items-center h-100">
+                <div class="col-xxl-4 col-md-6 col-sm-9">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-5">
+                            <p class="m-auto p-2">
+                                There was an error processing your order, please try again later.
+                            </p>
+                            <p class="m-auto p-2"><a href="{% url 'store:index' %}">Return to home page</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%else%}  
+            <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+            <script>
+                // Agrega credenciales de SDK
+                const mp = new MercadoPago("{{PUBLIC_KEY}}", {
+                        locale: 'es-AR'
+                });
+                
+                // Inicializa el checkout
+                const checkout = mp.checkout({
+                    preference: {
+                        id: "{{preference.id}}"
+                    },
+                    autoOpen: true,
+                });
+            </script>
+        {%endif%}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

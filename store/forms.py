@@ -4,6 +4,7 @@ from account.models import Account
 class UserShippingDataForm(forms.Form):
     first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
+    is_logged = forms.CharField(max_length=10)
     email = forms.EmailField(max_length=200)
     address = forms.CharField(max_length=200)
     city = forms.CharField(max_length=200)
@@ -13,6 +14,8 @@ class UserShippingDataForm(forms.Form):
     
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
+        if self.cleaned_data['is_logged']:
+            return email
         try:
             account = Account.objects.get(email=email)   
         except:
@@ -32,3 +35,10 @@ class UserShippingDataForm(forms.Form):
             return last_name.lower()
         else:
             raise forms.ValidationError('Last Name must be alphabetical') 
+        
+    def clean_is_logged(self):
+        is_logged = self.cleaned_data['is_logged']
+        if is_logged == 'True':
+            return True
+        else:
+            return False

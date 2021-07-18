@@ -11,11 +11,12 @@
                             <input id="first_name" type="text" class="form-control hidden" name="first_name" value="{{request.user.customermodel.first_name}}" required autofocus>
                             <input id="last_name" type="text" class="form-control hidden" name="last_name" value="{{request.user.customermodel.last_name}}" required autofocus>
                             <input id="email" type="email" class="form-control hidden" name="email" value="{{request.user.customermodel.email}}" required autofocus>
-
+                            <input id="is_logged" type="text" class="form-control hidden" name="is_logged" value="True" required autofocus>
                         {%else%}
                         <div class="card shadow-lg mb-4" id="personal-info">
                             <div class="card-body blue p-5">
                                 <div class="row">
+                                    <input id="is_logged" type="text" class="form-control hidden" name="is_logged" value="False" required autofocus>
                                     <div class="col-6">
                                         <label class="mb-2" for="first_name">First Name</label>
                                         <input id="first_name" type="text" class="form-control" name="first_name" value="" required autofocus>
