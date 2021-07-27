@@ -1,10 +1,10 @@
-#Introduction
+# Introduction
 
-##Volkshop: an e-commerce platform with a fresh design using Django and SQL
+## Volkshop: an e-commerce platform with a fresh design using Django and SQL
 
 This website implements a complete cart functionality for non registered users, built-in MercadoPago payment flow, On-Sale product system and an UI fully designed on Figma.
 
-##Steps to run the project
+## Steps to run the project
 
 1. Clone the repo
 2. Install the dependencies using 
@@ -18,7 +18,7 @@ This website implements a complete cart functionality for non registered users, 
 
 5. Go to 127.0.0.1:8000/ to enter the website or 127.0.0.1:8000/admin to enter the admin panel
 
-##TODOs:
+## TODOs:
 
 - [x] Integrate payment methods (MercadoPago)
 - [x] Complete user manage system (Login, Register, Forgot, Reset)
