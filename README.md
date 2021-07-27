@@ -1,4 +1,4 @@
-# Welcome to the Volkshop Project
+# Welcome to the Volkshop Project :wolf:
 
 ## Volkshop is an e-commerce platform with a fresh design using Django and SQL
 
